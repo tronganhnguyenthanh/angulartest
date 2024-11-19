@@ -5,6 +5,8 @@ dotenv.config()
 const cors = require("cors")
 const mongoose = require("mongoose")
 const routerAPI = require("./routes/routes.api")
+const multer = require("multer")
+const upload = multer({dest:"/uploads"})
 mongoose.connect(process.env.DB).then(() => {console.log("Database connect successfully")}).catch(() => {
  console.log("Failed to connect")
 })
@@ -14,3 +16,6 @@ app.listen(process.env.PORT, () => {
 app.use(express.json())
 app.use(cors())
 app.use("/api", routerAPI)
+app.post("/import", upload.single("file"), (req,res) => {
+ res.json(req.file)
+})
