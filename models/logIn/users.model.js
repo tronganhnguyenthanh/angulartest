@@ -5,9 +5,6 @@ const loginSchema = mongoose.Schema({
   },
   password:{
    type:String
-  },
-  access_token:{
-   type:String
   }
  },{
   collection:"login"

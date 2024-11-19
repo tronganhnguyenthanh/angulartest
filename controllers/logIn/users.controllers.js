@@ -1,4 +1,5 @@
 const userLoginModel = require("../../models/logIn/users.model")
+const jwt = require("jsonwebtoken")
 const Login = async (req, res) => {
   try{
     let users = new userLoginModel({
@@ -6,7 +7,10 @@ const Login = async (req, res) => {
      password:req.body.password
     })
     await users.save()
-    res.status(200).json({message:"User login successfully"})
+    let decodeUser = await jwt.sign({users}, "I am doing a technical test", {
+      expiresIn:"24d"
+    })
+    res.status(200).json({token:decodeUser})
   }catch(error){
     res.status(400).json({message:error})
   }
