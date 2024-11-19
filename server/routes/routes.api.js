@@ -11,4 +11,5 @@ routerAPI.post("/user/logout", userLoggedOut.Logout)
 routerAPI.get("/user/import", fetchImportFile)
 routerAPI.post("/pokemon/new", pokemon.addPokemon)
 routerAPI.get("/pokemon/list", pokemon.getPokemonList)
+routerAPI.get("/pokemon/detail/:id", pokemon.viewPokemonDetailById)
 module.exports = routerAPI

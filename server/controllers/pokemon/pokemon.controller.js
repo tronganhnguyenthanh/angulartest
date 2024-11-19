@@ -13,14 +13,26 @@ const addPokemon = async (req, res) => {
 }
 const getPokemonList = async (req, res) => {
  try{
-   let limit = req.query.limit || 10
-   let listPokemon = await pokemonModel.find().limit(limit)
+   let limit = req.query.limit || 20
+   let name = req.query.name || ""
+   let query = name ? {name:{$regex:name, $options:"i"}}:{}
+   let listPokemon = await pokemonModel.find(query).limit(limit)
    res?.status(200)?.json(listPokemon)   
  }catch(error){
    res?.status(400)?.json({message:error}) 
  }
 }
+const viewPokemonDetailById = async (req, res) => {
+  try{
+    let id = req.body.id
+    let detailPokemon = await pokemonModel.findOne({id:id})
+    res.status(200).json(detailPokemon)
+  }catch(error){
+    res?.status(400)?.json({message:error})
+  }
+}
 module.exports = {
  addPokemon,
- getPokemonList
+ getPokemonList,
+ viewPokemonDetailById
 }
