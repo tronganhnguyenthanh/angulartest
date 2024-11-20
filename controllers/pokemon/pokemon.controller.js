@@ -24,8 +24,8 @@ const getPokemonList = async (req, res) => {
 }
 const viewPokemonDetailById = async (req, res) => {
   try{
-    let id = req.body.id
-    let detailPokemon = await pokemonModel.findOne({id:id})
+    let id = req.params.id
+    let detailPokemon = await pokemonModel.findById(id)
     res.status(200).json(detailPokemon)
   }catch(error){
     res?.status(400)?.json({message:error})
